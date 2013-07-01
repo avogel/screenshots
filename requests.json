@@ -1,0 +1,29 @@
+{
+	"browsers": [{
+		"os": "Windows", 
+		"os_version": "7", 
+		"browser_version": "9.0", 
+		"browser": "ie"
+	},{
+		"os_version": "Mountain Lion",
+		"browser": "firefox",
+		"device": null,
+		"os": "OS X",
+		"browser_version": "4.0"
+	},{
+		"os_version": "Lion",
+		"browser": "chrome",
+		"device": null,
+		"os": "OS X",
+		"browser_version": "18.0"
+	},{
+		"os_version": "8",
+		"browser": "firefox",
+		"device": null,
+		"os": "Windows",
+		"browser_version": "16.0"
+	}
+	],
+	"url": "http://nytimes.com",
+	"callback_url": "127.0.0.1/job-done"
+}

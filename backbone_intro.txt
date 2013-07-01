@@ -1,0 +1,17 @@
+backbone useage:
+
+use restful http to update storage of info
+
+
+collection (list of models): add, remove, reset events
+
+view: owns a DOM object.  has render method.
+
+
+Model View Binding: (not automatic) done in initialize method of a view.  "this.model.on('change', this.render, this")";
+
+router: routes url to javascript code.
+history: observes URI changes and fires callback
+
+
+To Consider: change how collections in Mongodb are used to get older and newer pictures at once

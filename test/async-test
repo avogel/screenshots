@@ -1,0 +1,16 @@
+var async = require('async');
+var express = require('express');
+var app = express();
+
+images = [{a:'a', b:'b'},{a:'a', b:'b'},{a:'a', b:'b'},{a:'a', b:'b'},{a:'a', b:'b'},];
+var collectionString = "389124";
+async.each(images, function(item, callback){
+	item.batch = collectionString;
+	callback();
+}, function(e) {
+	console.log(e);
+});
+console.log(images)
+
+app.listen(3000);
+console.log('listening on port 3000');

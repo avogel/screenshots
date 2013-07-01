@@ -1,0 +1,12 @@
+{
+  "name": "screenshots",
+  "description": "creates jobs to take screenshots across multiple browsers and resolutions",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "3.x",
+    "mongodb": ">= 0.9.6-7",
+    "cron" : "1.0.0",
+    "requirejs": "2.1.6"
+  }
+}
