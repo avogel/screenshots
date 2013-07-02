@@ -9,16 +9,27 @@ app.configure(function(){
     app.use(app.router);
 });
 
+app.use(express.static(__dirname + '/scripts'));
+
+app.get('/', index);
+function index(req, res){
+	res.sendfile('index.html');
+}
+
 //use this one for testing
 app.get('/test', function(req, res){
   screenshots.getTestBatch(req, res);
 });
+app.get('/test/:id', function(req, res){
+  screenshots.getTestById(req,res);
+});
+
 
 app.get('/screenshots', screenshots.getMostRecentBatch);
 app.get('/screenshots/:id', screenshots.getBatchById);
 
 app.use(function(err, req, res, next){
-  console.error(err.stack);
+  console.log(err.stack);
   res.send(500,'something broke');
 });
 

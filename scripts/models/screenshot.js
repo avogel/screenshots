@@ -3,20 +3,23 @@ define([
 ], function(Backbone){
 
 	var Screenshot = Backbone.Model.extend({
-		defaults:{
-			'url': '',
-			'image_url': '',
-			'device': null,
-			'os': '',
-			'created_at': '',
-			'id': '',
-			'state': '',
-			'os_version': '',
-			'thumb_url': '',
-			'orientation': null,
-			'browser': '',
-			'browser_version': '' 
+		defaults: function(){
+			return {
+				url: '',
+				image_url: '',
+				device: null,
+				os: '',
+				created_at: '',
+				id: '',
+				state: '',
+				os_version: '',
+				thumb_url: '',
+				orientation: null,
+				browser: '',
+				browser_version: ''
+			}; 
 		},
+
 		initialize: function(options){
 			this.url = options.url;
 			this.image_url = options.image_url;
@@ -32,7 +35,7 @@ define([
 			this.browser_version = options.browser_version;
 		},
 
-		urlRoot: "test/"
+		idAttribute: "_id",
 
 	});
 

@@ -5,24 +5,21 @@ define([
 
 	var ScreenshotView = Backbone.View.extend({
 
-		tagName: 'div',
+		tagName: 'li',
 
 		template: _.template('<img class="screenshot" src= <%= thumb_url%> ><p><%= browser %> version <%= browser_version %> running on <%= os %> <%= os_version %></p>'),
 
+		events: {},
+
 		initialize: function(){
-			_.bindAll(this, 'render');
-			this.render();
+			this.model.bind("change", this.render, this);
+			this.model.bind("destroy", this.close, this);
 		},
 
-		render: function( req, res){
-			console.log(this.model)
-			var dict = this.model.toJSON();
-			var html = this.template(dict);
-			$("#content").append(this.el);
-			$(this.el).html(this.template(this.model));
-			return this.el;
+		render: function(){
+			this.$el.html(this.template(this.model.toJSON()));
+			return this;
 		}
-		//events:{}
 	});
 
 	return ScreenshotView;

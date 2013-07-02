@@ -1,5 +1,6 @@
 var MongoHelper = require('../mongo-helper');
 var MongoClient = require('mongodb').MongoClient;
+var BSON = require('mongodb').BSONPure;
 
 
 exports.getMostRecentBatch = function(req, res) {
@@ -24,6 +25,18 @@ exports.getTestBatch = function(req, res){
 		});
 	});
 	//res.send(testbatch);
+}
+
+exports.getTestById = function(req, res){
+	var mongoHelper = new MongoHelper();
+	var id = req.params.id;
+	MongoClient.connect("mongodb://localhost:27017/browserstacktest", function(err, db){
+		var collection = db.collection('test');
+		collection.findOne({'_id': new BSON.ObjectID(id)}, function(err, result){
+			db.close();
+			res.send(result);
+		});
+	});
 }
 
 exports.getBatchById = function(req, res){

@@ -1,31 +1,29 @@
 define([
 	'backbone',
-	'views/screenshot'
-], function(Backbone, ScreenshotView){
+	'views/screenshot',
+	'collections/batch'
+], function(Backbone, ScreenshotView, Batch){
 
 	var BatchView = Backbone.View.extend({
-		id: 'page',
+		id: 'thumbnails',
 
-		views: {},
+		tagname: 'ul',
 
 		initialize: function(){
-			this.collection.bind('add', function(model){
-				//console.log('initialize in batch');
-				//console.log(model);
-				//this.views[model.cid] 
-				$(self.el).append(new ScreenshotView({model: model, id:'view_'+model.cid}).render());
-			}, this);
-			this.collection.bind('remove', function(model){
-				this.views[model.cid].remove();
-				delete this.views[model.cid];
-			}, this);
+			this.render();
 		},
-		render: function(){
-			_.each( this.model.models, function( screenshot ){
-				$(this.el).append(new ScreenshotView({model: model, id:'view_'+model.cid}).render());
-			}, this);
 
-			return this.el;
+
+		render: function(){
+			var screenshots = this.collection.models;
+			var l = screenshots.length;
+			for(var i = 0; i< l; i++){
+				var sc = new ScreenshotView({model: screenshots[i]}).render();
+				this.$el.append(sc.el);
+			}
+			console.log(this);
+			$("#content").html(this.el);
+			return this;
 		}
 	});
 
