@@ -19,11 +19,11 @@ requirejs.config({
     }
 })
 
-requirejs(['collections/batch', 'models/screenshot', 'views/batch', 'views/screenshot' ],
-function(BatchCollection, ScreenshotModel, BatchView, ScreenshotView){
+requirejs(['collections/batch', 'models/screenshot', 'views/batch', 'views/screenshot', 'views/sidebar' ],
+function(BatchCollection, ScreenshotModel, BatchView, ScreenshotView, SidebarView){
     var AppRouter = Backbone.Router.extend({
         routes: {
-            "testing" : "home"
+            "testing" : "home",
         },
 
         // initialize: function(){
@@ -42,7 +42,8 @@ function(BatchCollection, ScreenshotModel, BatchView, ScreenshotView){
                         var m = new ScreenshotModel(response[r]);
                         batch.add(m);
                     }
-                    var bv = new BatchView({collection: batch});
+                    var batcView = new BatchView({collection: batch});
+                    var sidebar = new SidebarView({collection: batch});
                 }
             });
             

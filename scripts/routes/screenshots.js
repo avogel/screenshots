@@ -17,6 +17,7 @@ exports.getTestBatch = function(req, res){
 	// console.log("*********************************");
 	// console.log(testbatch);
 	// console.log("*********************************");
+	// TODO change the '/browserstacktest' part to what we want
 	MongoClient.connect("mongodb://localhost:27017/browserstacktest", function(err, db){
 		var collection = db.collection('test');
 		collection.find().toArray(function(err, results){
@@ -30,6 +31,7 @@ exports.getTestBatch = function(req, res){
 exports.getTestById = function(req, res){
 	var mongoHelper = new MongoHelper();
 	var id = req.params.id;
+	// TODO change the '/browserstacktest' part to what we want, also the collection
 	MongoClient.connect("mongodb://localhost:27017/browserstacktest", function(err, db){
 		var collection = db.collection('test');
 		collection.findOne({'_id': new BSON.ObjectID(id)}, function(err, result){

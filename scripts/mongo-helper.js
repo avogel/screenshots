@@ -4,6 +4,7 @@ function mongoHelper(){
 
 		//add a batch of photos
 	this.addBatch = function(batch){
+		// TODO change the '/browserstacktest' part to what we want
 		MongoClient.connect("mongodb://localhost:27017/browserstacktest", function(err, db){
 			var collection = db.collection('test');
 			collection.insert(batch, {w:1}, function(err, result){});
@@ -43,6 +44,7 @@ function mongoHelper(){
 	//get batch of photos.  collection name is something like "month.date.year.1" where the
 	//trailing number signifies morning or evening batch.
 	this.getBatch = function(batchId){
+		// TODO change the '/browserstacktest' part to what we want
 		MongoClient.connect("mongodb://localhost:27017/browserstacktest", function(err, db){
 			if(err){
 				console.log(err);
@@ -58,7 +60,7 @@ function mongoHelper(){
 	};
 
 	this.getTestBatch = function(callback){
-		console.log('called getTestBatch')
+		// TODO change the '/browserstacktest' part to what we want
 		MongoClient.connect("mongodb://localhost:27017/browserstacktest", function(err, db){
 			var collection = db.collection('test');
 			collection.find().toArray(function(err, results){

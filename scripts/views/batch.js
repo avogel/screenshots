@@ -7,12 +7,17 @@ define([
 	var BatchView = Backbone.View.extend({
 		id: 'thumbnails',
 
-		tagname: 'ul',
+		tagName: 'ul',
+
+		attributes: {'class': 'unstyled'},
 
 		initialize: function(){
 			this.render();
 		},
 
+		// events: {
+		// 	"click a#ie": "viewIE",
+		// },
 
 		render: function(){
 			var screenshots = this.collection.models;
@@ -21,9 +26,14 @@ define([
 				var sc = new ScreenshotView({model: screenshots[i]}).render();
 				this.$el.append(sc.el);
 			}
-			console.log(this);
+			//console.log(this);
 			$("#content").html(this.el);
+			var browsers = _.uniq()
 			return this;
+		},
+
+		viewIE: function(){
+			console.log('ieieie');
 		}
 	});
 
