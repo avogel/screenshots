@@ -5,7 +5,11 @@ define([
 
 	var ScreenshotView = Backbone.View.extend({
 
-		tagName: 'li',
+		tagName: 'div',
+
+		attributes: {
+			'class': 'span6 marker',
+		},
 
 		template: _.template('<img class="screenshot" src= <%= thumb_url%> ><p><%= browser %> version <%= browser_version %> running on <%= os %> <%= os_version %></p>'),
 

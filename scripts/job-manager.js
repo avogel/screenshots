@@ -70,7 +70,6 @@ function JobManager(){
 
 		        	});
 		        	jobManager.on('timeouts',function(timeouts){
-		          		//console.log("----------------------------------------------------------------------");
 		          		//createJob with these
 		          		var redos = {"browsers":[],"url":"http://nytimes.com"};
 		          		for(var i = 0; i < timeouts.length; i++){
@@ -80,13 +79,6 @@ function JobManager(){
 		            		redos.browsers[i].browser_version = timeouts[i].browser_version;
 		            		redos.browsers[i].browser = timeouts[i].browser;
 		          		}
-		          		// console.log("These are the screenshots not completed: ");
-		          		// console.log(timeouts);
-		          		// console.log("----------------------------------------------------------------------");
-		          		//TODO store this in the db
-		          		// console.log("these screenshots are completed: ");
-		          		// console.log(images);
-		          		// console.log("**********************************************************************");
 		          		jobManager.createJob(redos);
 
 		        	});
@@ -97,6 +89,10 @@ function JobManager(){
 		      	}
 		      	if(res.statusCode == 422){
 		        	console.log("RECIEVED 422 STATUS CODE: "+ responseString);
+		      	}
+		      	else if(res.statusCode == 500){
+		      		console.log("There seems to be an error at browserstack");
+		      		console.log(responseString);
 		      	}
 		      	else if(res.statusCode != 200){
 		        	console.log("Status: " + res.statusCode+"; "+ responseString);

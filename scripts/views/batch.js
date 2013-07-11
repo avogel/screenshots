@@ -7,9 +7,7 @@ define([
 	var BatchView = Backbone.View.extend({
 		id: 'thumbnails',
 
-		tagName: 'ul',
-
-		attributes: {'class': 'unstyled'},
+		tagName: 'div',
 
 		initialize: function(){
 			this.render();
@@ -20,21 +18,21 @@ define([
 		// },
 
 		render: function(){
+			$("#content").append("<div class='span10 header'><h1>Screenshots</h1></div>");
 			var screenshots = this.collection.models;
 			var l = screenshots.length;
 			for(var i = 0; i< l; i++){
 				var sc = new ScreenshotView({model: screenshots[i]}).render();
+				if(i == 0){
+					$(".marker").attr('id','firstScreenshot')
+					console.log(sc);
+				}
 				this.$el.append(sc.el);
 			}
-			//console.log(this);
-			$("#content").html(this.el);
-			var browsers = _.uniq()
+			$("#content").append(this.el);
 			return this;
 		},
 
-		viewIE: function(){
-			console.log('ieieie');
-		}
 	});
 
 	return BatchView;

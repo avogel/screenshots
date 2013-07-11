@@ -19,11 +19,11 @@ requirejs.config({
     }
 })
 
-requirejs(['collections/batch', 'models/screenshot', 'views/batch', 'views/screenshot', 'views/sidebar' ],
-function(BatchCollection, ScreenshotModel, BatchView, ScreenshotView, SidebarView){
+requirejs(['collections/batch', 'models/screenshot', 'views/batch', 'views/screenshot', 'views/sidebar', 'views/body' ],
+function(BatchCollection, ScreenshotModel, BatchView, ScreenshotView, SidebarView, BodyView){
     var AppRouter = Backbone.Router.extend({
         routes: {
-            "testing" : "home",
+            "home" : "home",
         },
 
         // initialize: function(){
@@ -32,20 +32,23 @@ function(BatchCollection, ScreenshotModel, BatchView, ScreenshotView, SidebarVie
 
         home: function(){
             var batch = new BatchCollection();
+            var body = new BodyView();
             batch.fetch({
                 error: function(collection, response){
                     console.log('error', response);
                 },
 
                 success: function(collection, response){
+                    //console.log(collection);
                     for(var r = 0, l = response.length; r<l; r++){
                         var m = new ScreenshotModel(response[r]);
                         batch.add(m);
                     }
-                    var batcView = new BatchView({collection: batch});
-                    var sidebar = new SidebarView({collection: batch});
+                    body['initialBatch'] = batch
+                    body.render(batch);
                 }
             });
+            
             
         }
     });
