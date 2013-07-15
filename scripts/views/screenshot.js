@@ -11,9 +11,10 @@ define([
 			'class': 'span6 marker',
 		},
 
-		template: _.template('<img class="screenshot" src= <%= thumb_url%> ><p><%= browser %> version <%= browser_version %> running on <%= os %> <%= os_version %></p>'),
+		template: _.template('<h4 class="screenshotTitle"><%= browser %> version <%= browser_version %> running on <%= os %> <%= os_version %></h4><a href=<%= image_url%> ><img class="screenshot" src= <%= image_url%> ></a>'),
 
-		events: {},
+		events: {
+		},
 
 		initialize: function(){
 			this.model.bind("change", this.render, this);
@@ -23,7 +24,8 @@ define([
 		render: function(){
 			this.$el.html(this.template(this.model.toJSON()));
 			return this;
-		}
+		},
+
 	});
 
 	return ScreenshotView;

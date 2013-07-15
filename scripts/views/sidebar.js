@@ -11,9 +11,10 @@ define([
 
 		tagName: 'div',
 
+		views: [],
+
 		attributes:{
 			"class": "btn-group btn-group-vertical",
-			"data-toggle": "buttons-checkbox"
 		},
 
 		initialize: function(){
@@ -21,21 +22,29 @@ define([
 		},
 
 		events: {
-			'click .filter': 'filterBrowser',
+			'click .filter': 'filterButtonHandler',
 		},
 
 		render: function(){
 			var screenshots = this.collection.models;
-			console.log(this.collection.models);
 			var browserList = _.uniq(_.toArray(this.collection.pluck("browser")));
+			var modeButton = $('<a/>',{
+				text: 'compact',
+				id: 'mode',
+				class: 'btn btn-primary'
+			});
+			this.$el.append(modeButton);
 			//var resolutionsList = _.uniq(_.toArray(this.collection.pluck("browser")));
 			for(var i = 0, l=browserList.length; i<l; i++){
 				var button = new FilterButtonView({model: this.collection.findWhere({'browser':browserList[i]})}).render();
 				this.$el.append(button.el);
 			}
-			$("#sidebar").html(this.el);
-			return this.el;
+			return this;
 		},
+
+		filterButtonHandler: function(ev){
+			$("#"+ev.target.text+"filter").toggleClass('btn-primary').toggleClass('btn-inverse');
+		}
 
 	});
 

@@ -16,8 +16,6 @@ define([
 		initialize: function(){
 			this.$el.attr('id',this.model.browser+"filter");
 			this.render();
-			// this.model.bind("change", this.render, this);
-			// this.model.bind("destroy", this.close, this);
 		},
 
 		render: function(){

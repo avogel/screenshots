@@ -24,34 +24,47 @@ function(BatchCollection, ScreenshotModel, BatchView, ScreenshotView, SidebarVie
     var AppRouter = Backbone.Router.extend({
         routes: {
             "home" : "home",
+            "compact": "compact"
         },
 
-        // initialize: function(){
-            
-        // },
+        
 
         home: function(){
             var batch = new BatchCollection();
-            var body = new BodyView();
             batch.fetch({
                 error: function(collection, response){
                     console.log('error', response);
                 },
 
                 success: function(collection, response){
-                    //console.log(collection);
-                    for(var r = 0, l = response.length; r<l; r++){
-                        var m = new ScreenshotModel(response[r]);
-                        batch.add(m);
-                    }
-                    body['initialBatch'] = batch
-                    body.render(batch);
+                    var body = new BodyView(collection);
+                    body.render(collection);
                 }
-            });
-            
-            
+            });  
+        },
+
+        compact: function(){
+            var batch = new BatchCollection();
+
+            batch.fetch({
+                error: function(collection, response){
+                    console.log('error', response);
+                },
+
+                success: function(collection, response){
+                    var body = new BodyView(collection);
+                    body.render(collection);
+                    body.renderCompact(collection);
+                }
+            });  
         }
     });
+    
     app = new AppRouter();
+
+    $("#mode").click(function(){
+        console.log('test');
+        app.navigate('compact', {trigger: true});
+    });
     Backbone.history.start();
 });

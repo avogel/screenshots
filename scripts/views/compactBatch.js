@@ -1,15 +1,17 @@
 define([
 	'backbone',
-	'views/screenshot',
+	'views/compactScreenshot',
 	'collections/batch'
-], function(Backbone, ScreenshotView, Batch){
+], function(Backbone, CompactScreenshotView, Batch){
 
-	var BatchView = Backbone.View.extend({
-		id: 'thumbnails',
+	var CompactBatchView = Backbone.View.extend({
+		id: 'accordion',
 
 		tagName: 'div',
 
-		screenshotViews: [],
+		attributes: {
+			'class': 'accordion',
+		},
 
 		initialize: function(){
 			this.render();
@@ -20,12 +22,10 @@ define([
 		// },
 
 		render: function(){
-			console.log(this);
 			var screenshots = this.collection.models;
 			var l = screenshots.length;
 			for(var i = 0; i< l; i++){
-				var sc = new ScreenshotView({model: screenshots[i]}).render();
-				this.screenshotViews.push(sc);
+				var sc = new CompactScreenshotView({model: screenshots[i]}).render();
 				this.$el.append(sc.el);
 			}
 			return this;
@@ -33,7 +33,7 @@ define([
 
 	});
 
-	return BatchView;
+	return CompactBatchView;
 
 });
 

@@ -2,6 +2,34 @@
 	text-align: center;
 }
 
-#content #thumbnails #firstScreenshot.marker.span6{
-	margin-left: 2.127659574468085%;
+.row-fluid [class="span6 marker"]{
+  margin-left: 0%;
+}
+
+.screenshot{
+	border-style:solid;
+	border-width:5px;
+}
+
+.screenshot.collapsable{
+	display: block;
+	margin-left: auto;
+	margin-right: auto
+}
+
+.span6.marker{
+	margin-right: 15px;
+}
+
+.screenshotTitle{
+	text-align: center;
+}
+
+.accordion-group{
+	border-style:solid;
+	border-width: 10px;
+}
+
+#sidebarfilters{
+	text-align: center;
 }
