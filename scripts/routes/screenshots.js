@@ -2,30 +2,22 @@ var MongoHelper = require('../mongo-helper');
 var MongoClient = require('mongodb').MongoClient;
 var BSON = require('mongodb').BSONPure;
 
-
+//get the most recent batch
 exports.getMostRecentBatch = function(req, res) {
     var mongoHelper = new MongoHelper();
     var mostRecentBatchId = mongoHelper.getMostRecentBatchId();
     var batch = mongoHelper.getBatch(mostRecentBatchId);
-    //var testbatch = mongoHelper.getTestBatch();
-    //res.send(batch);
 };
 
+//gets the test batch, used for testing
 exports.getTestBatch = function(req, res){
 	var mongoHelper = new MongoHelper();
-	//var testbatch = mongoHelper.getTestBatch(res.send);
-	// console.log("*********************************");
-	// console.log(testbatch);
-	// console.log("*********************************");
-	// TODO change the '/browserstacktest' part to what we want
-	MongoClient.connect("mongodb://localhost:27017/browserstacktest", function(err, db){
-		var collection = db.collection('test');
-		collection.find().toArray(function(err, results){
-			db.close();
-			res.send(results);
-		});
-	});
-	//res.send(testbatch);
+	mongoHelper.getTestBatch(req, res);
+};
+
+exports.getBatchIds = function(req, res){
+	var mongoHelper = new MongoHelper();
+	mongoHelper.getBatchIds(req,res);
 }
 
 exports.getTestById = function(req, res){
@@ -34,15 +26,16 @@ exports.getTestById = function(req, res){
 	// TODO change the '/browserstacktest' part to what we want, also the collection
 	MongoClient.connect("mongodb://localhost:27017/browserstacktest", function(err, db){
 		var collection = db.collection('test');
-		collection.findOne({'_id': new BSON.ObjectID(id)}, function(err, result){
+		collection.find({batchId: id}).toArray(function(err, result){
 			db.close();
 			res.send(result);
 		});
 	});
-}
+};
 
+//get a batch by the Id
 exports.getBatchById = function(req, res){
-	var batchId = req.body.id;
+	var batchId = req.params.id;
 	var mongoHelper = new MongoHelper();
 	var mostRecentBatchId = mongoHelper.getMostRecentBatchId();
 	var batch = mongoHelper.getBatch(mostRecentBatchId);

@@ -12,6 +12,11 @@ define([
 			return _(this.filter({"browser":browser}));
 		},
 
+		getByBatchId: function(batchId){
+			this.url = '/test/'+batchId;
+			this.fetch();
+		},
+
 
 	});
 

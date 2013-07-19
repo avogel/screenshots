@@ -19,6 +19,18 @@ function mongoHelper(){
 		return this.getPastBatchId(date);
 	}
 
+	//TODO change test and url
+	this.getBatchIds = function(req, res){
+		MongoClient.connect("mongodb://localhost:27017/browserstacktest", function(err, db){
+			if(err){
+				console.log(err);
+			}
+			var collection = db.collection('test');
+			res.send(db.collection.distinct('batchId'));
+			db.close();
+		})
+	}
+
 	//takes a javascript date object, and returns the batchid string for the given date
 	this.getPastBatchId = function(d){
 		var date = d.getDate();
@@ -33,17 +45,17 @@ function mongoHelper(){
 
 		//adds .1 at the end if it is the morning batch, .2 if it is the afternoon batch
 		if(d.getHours()<=12) {
-			batchIdString = batchIdString.concat('1');
+			batchIdString = batchIdString.concat('0');
 		}
 		else{
-			batchIdString = batchIdString.concat('2');
+			batchIdString = batchIdString.concat('5');
 		}
 		return batchIdString;
 	}
 
-	//get batch of photos.  collection name is something like "month.date.year.1" where the
-	//trailing number signifies morning or evening batch.
-	this.getBatch = function(batchId){
+	//get batch of photos.  collection name is "monthdateyear1" eg "010420130" where the
+	//trailing number is 0 for morning or 5 for evening batch.
+	this.getBatch = function(req, res, batchId){
 		// TODO change the '/browserstacktest' part to what we want
 		MongoClient.connect("mongodb://localhost:27017/browserstacktest", function(err, db){
 			if(err){
@@ -55,20 +67,27 @@ function mongoHelper(){
 					batchId: batchId
 				}
 			)
-			return collection;
+			db.close();
+			res.send(collection);
 		});
 	};
 
-	this.getTestBatch = function(callback){
+	this.getTestBatch = function(req, res){
 		// TODO change the '/browserstacktest' part to what we want
+		var output = [];
 		MongoClient.connect("mongodb://localhost:27017/browserstacktest", function(err, db){
 			var collection = db.collection('test');
 			collection.find().toArray(function(err, results){
 				db.close();
-				console.log(results);
-				callback(results);
+				for(var r in results){
+					output.push(results[r]);
+					//console.log(results[r]);
+				}
+				//console.log(output);
+				res.send(output);
 			});
 		});
+		//console.log(output);
 	}
 
 }

@@ -23,6 +23,9 @@ app.get('/test', function(req, res){
 app.get('/test/:id', function(req, res){
   screenshots.getTestById(req,res);
 });
+app.get'/batchIds', function(req, res){
+	screenshots.getBatchIds(req,res);
+}
 
 
 app.get('/screenshots', screenshots.getMostRecentBatch);
@@ -37,12 +40,13 @@ app.listen(3000);
 console.log('Listening on port 3000');
 
 //function that creates the repeating cron job; executes at 9 am and 2 pm
+
 // var createCron = function(){
 //   var fileJSON = require('./requests.json');
 //   var dataString = JSON.stringify(fileJSON);
 //   var jobManager = new JobManager();
 //   var job = new cronJob({
-//     cronTime: '46 9,17 * 1-5 * ',
+//     cronTime: '0 9,17 * 1-5 * ',
 //     onTick: function(){
 //       jobManager.createJob(fileJSON)
 //     },

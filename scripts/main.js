@@ -10,14 +10,15 @@ requirejs.config({
         },
         'jquery': {
             exports: 'jquery'
-        }
+        },
     },
     paths: {
         'backbone': 'lib/backbone',
         'underscore': 'lib/underscore',
-        'jquery': 'lib/jquery'
+        'jquery': 'lib/jquery',
+        'jqueryui': 'lib/jqueryui'
     }
-})
+});
 
 requirejs(['collections/batch', 'models/screenshot', 'views/batch', 'views/screenshot', 'views/sidebar', 'views/body' ],
 function(BatchCollection, ScreenshotModel, BatchView, ScreenshotView, SidebarView, BodyView){

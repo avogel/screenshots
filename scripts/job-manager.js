@@ -41,9 +41,6 @@ function JobManager(){
 		    });
 
 		    res.on('end', function(){
-		    	// console.log("THE RESPONSE IS *******************************************");
-		    	// console.log(responseString);
-		     //  	console.log("*******************************************");
 
 		      	var resultObject = JSON.parse(responseString);
 		    	if (res.statusCode == 200){
@@ -111,7 +108,7 @@ function JobManager(){
   	  var fileJSON = require('./requests.json');
   	  var dataString = JSON.stringify(fileJSON);
   	  var job = new cronJob({
-  	    cronTime: '46 9,17 * 1-5 * ',
+  	    cronTime: '0 9,17 * 1-5 * ',
   	    onTick: function(){
   	      this.createJob(fileJSON)
   	    },

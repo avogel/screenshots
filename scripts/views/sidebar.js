@@ -28,12 +28,6 @@ define([
 		render: function(){
 			var screenshots = this.collection.models;
 			var browserList = _.uniq(_.toArray(this.collection.pluck("browser")));
-			var modeButton = $('<a/>',{
-				text: 'compact',
-				id: 'mode',
-				class: 'btn btn-primary'
-			});
-			this.$el.append(modeButton);
 			//var resolutionsList = _.uniq(_.toArray(this.collection.pluck("browser")));
 			for(var i = 0, l=browserList.length; i<l; i++){
 				var button = new FilterButtonView({model: this.collection.findWhere({'browser':browserList[i]})}).render();
