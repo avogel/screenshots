@@ -21,14 +21,20 @@ function mongoHelper(){
 
 	//TODO change test and url
 	this.getBatchIds = function(req, res){
+		var output = [];
 		MongoClient.connect("mongodb://localhost:27017/browserstacktest", function(err, db){
-			if(err){
-				console.log(err);
-			}
 			var collection = db.collection('test');
-			res.send(db.collection.distinct('batchId'));
-			db.close();
-		})
+			var output = [];
+			var ids = collection.distinct('batchId').toArray(function(err, results){
+				db.close();
+				for(var r in results){
+					output.push(results[r]);
+					//console.log(results[r]);
+				}
+				//console.log(output);
+				res.send(output);
+			});
+		});
 	}
 
 	//takes a javascript date object, and returns the batchid string for the given date

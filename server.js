@@ -23,9 +23,9 @@ app.get('/test', function(req, res){
 app.get('/test/:id', function(req, res){
   screenshots.getTestById(req,res);
 });
-app.get'/batchIds', function(req, res){
+app.get('/batchIds', function(req, res){
 	screenshots.getBatchIds(req,res);
-}
+});
 
 
 app.get('/screenshots', screenshots.getMostRecentBatch);
