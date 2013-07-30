@@ -2,12 +2,21 @@ var MongoClient = require('mongodb').MongoClient;
 
 function mongoHelper(){
 
+	this.clearDB = function(){
+		MongoClient.connect("mongodb://localhost:27017/browserstacktest", function(err, db){
+			var collection = db.collection('test');
+			collection.remove();
+			db.close();
+		});
+	};
+
 		//add a batch of photos
 	this.addBatch = function(batch){
 		// TODO change the '/browserstacktest' part to what we want
 		MongoClient.connect("mongodb://localhost:27017/browserstacktest", function(err, db){
 			var collection = db.collection('test');
 			collection.insert(batch, {w:1}, function(err, result){});
+			db.close();
 		});
 		return true;
 	};
@@ -17,25 +26,7 @@ function mongoHelper(){
 	this.getMostRecentBatchId = function(){
 		var date = new Date();
 		return this.getPastBatchId(date);
-	}
-
-	//TODO change test and url
-	this.getBatchIds = function(req, res){
-		var output = [];
-		MongoClient.connect("mongodb://localhost:27017/browserstacktest", function(err, db){
-			var collection = db.collection('test');
-			var output = [];
-			var ids = collection.distinct('batchId').toArray(function(err, results){
-				db.close();
-				for(var r in results){
-					output.push(results[r]);
-					//console.log(results[r]);
-				}
-				//console.log(output);
-				res.send(output);
-			});
-		});
-	}
+	};
 
 	//takes a javascript date object, and returns the batchid string for the given date
 	this.getPastBatchId = function(d){
@@ -47,9 +38,9 @@ function mongoHelper(){
 		if(month <10){	month = "0"+month;	}
 		if(date < 10){	date = "0"+date;	}
 
-		var batchIdString = month + date + year;
+		var batchIdString = year+ month + date;
 
-		//adds .1 at the end if it is the morning batch, .2 if it is the afternoon batch
+		//adds 0 at the end if it is the morning batch, 5 if it is the afternoon batch
 		if(d.getHours()<=12) {
 			batchIdString = batchIdString.concat('0');
 		}
@@ -57,7 +48,7 @@ function mongoHelper(){
 			batchIdString = batchIdString.concat('5');
 		}
 		return batchIdString;
-	}
+	};
 
 	//get batch of photos.  collection name is "monthdateyear1" eg "010420130" where the
 	//trailing number is 0 for morning or 5 for evening batch.
@@ -90,11 +81,47 @@ function mongoHelper(){
 					//console.log(results[r]);
 				}
 				//console.log(output);
+				db.close();
 				res.send(output);
 			});
 		});
 		//console.log(output);
-	}
+	};
+
+	this.getTestById = function(req, res){
+		var id = parseInt(req.params.id);
+		var output = [];
+		// TODO change the '/browserstacktest' part to what we want, also the collection
+		MongoClient.connect("mongodb://localhost:27017/browserstacktest", function(err, db){
+			var collection = db.collection('test');
+			collection.find({"batchId": id}).toArray(function(err, docs){
+				db.close();
+				for(var r in docs){
+					output.push(docs[r]);
+				}
+				res.send(output);
+			});
+		});
+	};
+
+
+	//TODO change test and url
+	this.getBatchIds = function(req, res){
+		var output = [];
+		MongoClient.connect("mongodb://localhost:27017/browserstacktest", function(err, db){
+			var collection = db.collection('test');
+			var ids = collection.distinct("batchId", function(err, docs){
+				docs.sort();
+				for(d in docs){
+					if(typeof(docs[d]) == "number"){
+						output.push(docs[d]);
+					}
+				}
+				db.close();
+				res.send(output);
+			});
+		});
+	};
 
 }
 module.exports = mongoHelper;
@@ -111,6 +138,7 @@ module.exports = mongoHelper;
 //     thumb_url: 'http://www.browserstack.com/screenshots/a3e0ed65a94592d9c5f32129ce77ba6c82ecbc96/thumb_win7_ie_9.0.jpg',
 //     orientation: null,
 //     browser: 'ie',
+//     batchId: 010320130,
 //     browser_version: '9.0' },
 //   { url: 'http://nytimes.com',
 //     image_url: 'http://www.browserstack.com/screenshots/a3e0ed65a94592d9c5f32129ce77ba6c82ecbc96/macml_firefox_4.0.jpg',
@@ -122,8 +150,9 @@ module.exports = mongoHelper;
 //     os_version: 'Mountain Lion',
 //     thumb_url: 'http://www.browserstack.com/screenshots/a3e0ed65a94592d9c5f32129ce77ba6c82ecbc96/thumb_macml_firefox_4.0.jpg',
 //     orientation: null,
-//     browser: 'firefox',
-//     browser_version: '4.0' },
+//     batchId: 010320130,
+//     browser: 'ie',
+//     browser_version: '8.0' },
 //   { url: 'http://nytimes.com',
 //     image_url: 'http://www.browserstack.com/screenshots/a3e0ed65a94592d9c5f32129ce77ba6c82ecbc96/maclion_chrome_18.0.jpg',
 //     device: null,
@@ -134,8 +163,9 @@ module.exports = mongoHelper;
 //     os_version: 'Lion',
 //     thumb_url: 'http://www.browserstack.com/screenshots/a3e0ed65a94592d9c5f32129ce77ba6c82ecbc96/thumb_maclion_chrome_18.0.jpg',
 //     orientation: null,
-//     browser: 'chrome',
-//     browser_version: '18.0' },
+//     batchId: 010320130,
+//     browser: 'ie',
+//     browser_version: '10.0' },
 //   { url: 'http://nytimes.com',
 //     image_url: 'http://www.browserstack.com/screenshots/a3e0ed65a94592d9c5f32129ce77ba6c82ecbc96/win8_firefox_16.0.png',
 //     device: null,
@@ -145,8 +175,9 @@ module.exports = mongoHelper;
 //     state: 'done',
 //     os_version: '8',
 //     thumb_url: 'http://www.browserstack.com/screenshots/a3e0ed65a94592d9c5f32129ce77ba6c82ecbc96/thumb_win8_firefox_16.0.jpg',
+//     batchId: 010320130,
 //     orientation: null,
-//     browser: 'firefox',
-//     browser_version: '16.0' } ];
+//     browser: 'ie',
+//     browser_version: '9.0' } ];
 
 // test.addBatch(input);

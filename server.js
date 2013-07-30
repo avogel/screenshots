@@ -18,12 +18,11 @@ function index(req, res){
 
 //use this one for testing
 app.get('/test', function(req, res){
-  screenshots.getTestBatch(req, res);
+ 	screenshots.getTestBatch(req, res);
 });
-app.get('/test/:id', function(req, res){
-  screenshots.getTestById(req,res);
-});
-app.get('/batchIds', function(req, res){
+app.get('/test/:id', screenshots.getTestById);
+
+app.get('/batchIds', function(req,res){
 	screenshots.getBatchIds(req,res);
 });
 

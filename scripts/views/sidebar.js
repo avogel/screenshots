@@ -26,6 +26,7 @@ define([
 		},
 
 		render: function(){
+			console.log(this);
 			var screenshots = this.collection.models;
 			var browserList = _.uniq(_.toArray(this.collection.pluck("browser")));
 			//var resolutionsList = _.uniq(_.toArray(this.collection.pluck("browser")));

@@ -6,7 +6,12 @@ define([
 	var BtView = Backbone.View.extend({
 		tagName: 'div',
 
-		attributes: {},
+		id: 'bt',
+
+		attributes: {
+			'class': 'span12',
+			'style': 'margin-left: 0px'
+		},
 
 		screenshotViews : [],
 
@@ -21,9 +26,10 @@ define([
 			var screenshots = this.collection.models;
 			var l = screenshots.length;
 			for(var i = 0; i<l; i++){
-				var sc = new ScreenshotView({model: screenshots[i], mode: this.mode}).render();
-				this.screenshotViews.push(sc);
-				this.$el.append(sc.el);
+				var sc = new ScreenshotView({model: screenshots[i], mode: this.mode});
+				sc1 = sc.render();
+				this.screenshotViews.push(sc1);
+				this.$el.append(sc1.el);
 			}
 			return this;
 		}

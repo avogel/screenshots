@@ -13,9 +13,9 @@ define([
 			this.batchCollection = collection;
 		},
 
-		getByBatchId: function(batchId){
-			this.batchCollection.getByBatchId(batchId);
-		},
+		// getByBatchId: function(batchId){
+		// 	this.batchCollection.getByBatchId(batchId);
+		// },
 
 	});
 

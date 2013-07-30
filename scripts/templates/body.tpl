@@ -7,8 +7,9 @@
 			<h3 id="count" class="pull-right"></h3>
 		</div>
 		<div class="row-fluid">
-			<h3 id="date" class="pull-right">date</h3>
+			<h3 id="date" class="pull-right"></h3>
 			<a id="mode" class="btn btn-danger pull-left">Switch To Compact</a>
 		</div>
 	</div>
 </div>
+

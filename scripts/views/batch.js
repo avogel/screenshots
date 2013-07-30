@@ -1,6 +1,6 @@
 define([
 	'backbone',
-	'views/screenshot',
+	'views/sc',
 	'collections/batch'
 ], function(Backbone, ScreenshotView, Batch){
 
@@ -20,11 +20,12 @@ define([
 		// },
 
 		render: function(){
-			console.log(this);
 			var screenshots = this.collection.models;
 			var l = screenshots.length;
 			for(var i = 0; i< l; i++){
-				var sc = new ScreenshotView({model: screenshots[i]}).render();
+				console.log('create a screenshot view')
+				var sc = new ScreenshotView({model: screenshots[i], mode: 'browse'}).render();
+				console.log(sc);
 				this.screenshotViews.push(sc);
 				this.$el.append(sc.el);
 			}

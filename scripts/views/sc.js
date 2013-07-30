@@ -8,14 +8,21 @@ define([
 		attributes: {},
 
 		initialize: function(options){
-			console.log(options);
+			console.log('initialize sc', options);
 			this.mode = options.mode;
 			this.model = options.model;
+			// alert('init');
+			// alert(this.mode);
+			console.log(this);
 			if(this.mode == 'browse'){
-				this.attributes['class'] = 'span6 marker';
+				console.log('browse');
+				this.$el.addClass('span6 marker');
 			} else if(this.mode == 'compact'){
-				this.attributes['class'] = 'accordion-group';
+				// this.attributes['class'] = 'accordion-group';
+				this.$el.addClass('accordion-group');
 			}
+			console.log('###########sc init##############');
+			console.log(this);
 		},
 
 		template: function(model){
@@ -30,6 +37,7 @@ define([
 		render: function(){
 			// console.log(this.template(this.model.toJSON()));
 			this.$el.html(this.template(this.model.toJSON()));
+			// alert('render');
 			return this;
 		},
 

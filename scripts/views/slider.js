@@ -9,13 +9,13 @@ define([
 		tagName: 'div',
 
 		initialize: function(){
-			console.log(this);
-			//console.log(jquerySlider);
-			this.$el.slider();
-			this.$el.slider("value", 100);
+			this.$el.slider({'max': length});
+			this.$el.slider("value", length);
 		},
 
 		render: function(){
+			console.log('rendering slider');
+			console.log(this);
 			return this;
 		}
 
