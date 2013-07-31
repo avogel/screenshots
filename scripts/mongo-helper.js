@@ -3,7 +3,7 @@ var MongoClient = require('mongodb').MongoClient;
 function mongoHelper(){
 
 	this.clearDB = function(){
-		MongoClient.connect("mongodb://localhost:27017/browserstacktest", function(err, db){
+		MongoClient.connect("mongodb://ec2-50-17-56-184.compute-1.amazonaws.com/nyt5_screenshots/app/screenshots/:27017/browserstacktest", function(err, db){
 			var collection = db.collection('test');
 			collection.remove();
 			db.close();
@@ -13,7 +13,10 @@ function mongoHelper(){
 		//add a batch of photos
 	this.addBatch = function(batch){
 		// TODO change the '/browserstacktest' part to what we want
-		MongoClient.connect("mongodb://localhost:27017/browserstacktest", function(err, db){
+		MongoClient.connect("mongodb://ec2-50-17-56-184.compute-1.amazonaws.com/nyt5_screenshots/app/screenshots/:27017/browserstacktest", function(err, db){
+			if(err){
+				console.log('err',err);
+			}
 			var collection = db.collection('test');
 			collection.insert(batch, {w:1}, function(err, result){});
 			db.close();
@@ -54,7 +57,7 @@ function mongoHelper(){
 	//trailing number is 0 for morning or 5 for evening batch.
 	this.getBatch = function(req, res, batchId){
 		// TODO change the '/browserstacktest' part to what we want
-		MongoClient.connect("mongodb://localhost:27017/browserstacktest", function(err, db){
+		MongoClient.connect("mongodb://ec2-50-17-56-184.compute-1.amazonaws.com/nyt5_screenshots/app/screenshots/:27017/browserstacktest", function(err, db){
 			if(err){
 				console.log(err);
 			}
@@ -72,7 +75,7 @@ function mongoHelper(){
 	this.getTestBatch = function(req, res){
 		// TODO change the '/browserstacktest' part to what we want
 		var output = [];
-		MongoClient.connect("mongodb://localhost:27017/browserstacktest", function(err, db){
+		MongoClient.connect("mongodb://ec2-50-17-56-184.compute-1.amazonaws.com/nyt5_screenshots/app/screenshots/:27017/browserstacktest", function(err, db){
 			var collection = db.collection('test');
 			collection.find().toArray(function(err, results){
 				db.close();
@@ -108,7 +111,7 @@ function mongoHelper(){
 	//TODO change test and url
 	this.getBatchIds = function(req, res){
 		var output = [];
-		MongoClient.connect("mongodb://localhost:27017/browserstacktest", function(err, db){
+		MongoClient.connect("mongodb://ec2-50-17-56-184.compute-1.amazonaws.com/nyt5_screenshots/app/screenshots//:27017/browserstacktest", function(err, db){
 			var collection = db.collection('test');
 			var ids = collection.distinct("batchId", function(err, docs){
 				docs.sort();

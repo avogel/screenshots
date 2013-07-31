@@ -22,7 +22,8 @@ app.get('/test', function(req, res){
 });
 app.get('/test/:id', screenshots.getTestById);
 
-app.get('/batchIds', function(req,res){
+app.get('batchIds/', function(req,res){
+	console.log('batchIds requested');
 	screenshots.getBatchIds(req,res);
 });
 
@@ -33,6 +34,11 @@ app.get('/screenshots/:id', screenshots.getBatchById);
 app.use(function(err, req, res, next){
   console.log(err.stack);
   res.send(500,'something broke');
+});
+
+//The 404 route here
+app.get('*', function(req, res){
+  res.send('what???', 404);
 });
 
 app.listen(3000);

@@ -6,7 +6,7 @@ define([
 	'collections/batch',
 	'models/batch',
 	'models/batchIds',
-	'text!/templates/body.tpl'
+	'text!templates/body.tpl'
 ],
 function(Backbone, SidebarView, BatchView, SliderView, BatchCollection, BatchModel, BatchIdsModel, Template){
 	var BodyView = Backbone.View.extend({
