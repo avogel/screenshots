@@ -1,6 +1,6 @@
 var MongoHelper = require('./mongo-helper');
 
-
+//Fills test data into the DB
 var helper = new MongoHelper();
 //helper.clearDB();
 var input = [ { url: 'http://nytimes.com',

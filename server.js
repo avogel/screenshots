@@ -11,6 +11,7 @@ app.configure(function(){
 
 app.use(express.static(__dirname + '/scripts'));
 
+// This is the route used for the interface.
 app.get('/', index);
 function index(req, res){
 	res.sendfile('index.html');
@@ -22,37 +23,24 @@ app.get('/test', function(req, res){
 });
 app.get('/test/:id', screenshots.getTestById);
 
+//this is used to get the Ids of all batches so the slider can render with proper intervals
 app.get('/batchIds', function(req,res){
 	screenshots.getBatchIds(req,res);
 });
 
-
+//This will be used for production version of the interface
 app.get('/screenshots', screenshots.getMostRecentBatch);
 app.get('/screenshots/:id', screenshots.getBatchById);
 
+//used for internal 
 app.use(function(err, req, res, next){
   console.log(err.stack);
-  res.send(500,'something broke');
+  res.send(500,'Internal Server error. Something broke.');
 });
 
 app.listen(3000);
 console.log('Listening on port 3000');
 
 //function that creates the repeating cron job; executes at 9 am and 2 pm
-
-// var createCron = function(){
-//   var fileJSON = require('./requests.json');
-//   var dataString = JSON.stringify(fileJSON);
-//   var jobManager = new JobManager();
-//   var job = new cronJob({
-//     cronTime: '0 9,17 * 1-5 * ',
-//     onTick: function(){
-//       jobManager.createJob(fileJSON)
-//     },
-//     start: false,
-//     timeZone: "America/New_York"
-//   });
-//   job.start();
-// }
 //var jobManager = new JobManager;
 //jobManager.createCron();

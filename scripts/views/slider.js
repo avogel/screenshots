@@ -11,11 +11,11 @@ define([
 		initialize: function(){
 			this.$el.slider({'max': length});
 			this.$el.slider("value", length);
+			this.$el.css('margin-bottom', 20);
+			this.$el.css('margin-top', 20)
 		},
 
 		render: function(){
-			console.log('rendering slider');
-			console.log(this);
 			return this;
 		}
 

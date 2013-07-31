@@ -21,8 +21,6 @@ define([
 		},
 
 		initialize: function(options){
-			console.log('options');
-			console.log(options);
 			this.url = options.url;
 			this.image_url = options.image_url;
 			this.device = options.device;

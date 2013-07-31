@@ -30,21 +30,19 @@ function(BatchCollection, ScreenshotModel, BatchView, ScreenshotView, SidebarVie
             global.ids = data;
 
             var AppRouter = Backbone.Router.extend({
+                self: this,
+
                 routes: {
+                    "": "compact",
                     "home" : "home",
                     "compact": "compact"
                 },
 
                 
-
                 home: function(){
                     var batchId = global.ids[global.ids.length-1];
-                    console.log(String(batchId));
-                    console.log('pre first collection');
                     var batch = new BatchCollection({batchId: batchId});
-                    console.log('second batch created');
                     var body = new BodyView();
-                    console.log('end of body init');
                     batch.fetch({
                         error: function(collection, response){
                             console.log('error', response);
@@ -57,12 +55,11 @@ function(BatchCollection, ScreenshotModel, BatchView, ScreenshotView, SidebarVie
                             $("#date").html(body.hashToDateString((batchId)));
                         },
                     });
-                    console.log('batch')
-                    console.log(batch); 
                 },
 
                 compact: function(){
                     var batch = new BatchCollection();
+                    var batchId = global.ids[global.ids.length-1];
 
                     batch.fetch({
                         error: function(collection, response){
@@ -73,16 +70,16 @@ function(BatchCollection, ScreenshotModel, BatchView, ScreenshotView, SidebarVie
                             var body = new BodyView();
                             body.initialBatch = collection;
                             body.render(collection);
-                            body.renderCompact(collection);
+                            $("#date").html(body.hashToDateString((batchId)));
+
                         }
-                    });  
+                    });
+    
                 }
             });
 
             app = new AppRouter();
-            $("#mode").click(function(){
-                app.navigate('compact', {trigger: true});
-            });
+
             Backbone.history.start();
         }
     );

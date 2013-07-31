@@ -8,7 +8,7 @@
 		</div>
 		<div class="row-fluid">
 			<h3 id="date" class="pull-right"></h3>
-			<a id="mode" class="btn btn-danger pull-left">Switch To Compact</a>
+			<a id="mode" class="btn btn-danger pull-left">Switch to Browse Mode</a>
 		</div>
 	</div>
 </div>

@@ -18,7 +18,6 @@ define([
 		initialize: function(options){
 			this.collection = options.collection;
 			this.mode = options.mode;
-			console.log(this);
 			this.render();
 		},
 

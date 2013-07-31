@@ -13,10 +13,6 @@ define([
 			this.batchCollection = collection;
 		},
 
-		// getByBatchId: function(batchId){
-		// 	this.batchCollection.getByBatchId(batchId);
-		// },
-
 	});
 
 	return Batch;

@@ -9,7 +9,6 @@ define([
 		batchId: "",
 
 		initialize: function(options){
-			console.log('created a batch');
 			if(options){
 				this.batchId = options.batchId;
 			}
@@ -23,13 +22,6 @@ define([
 		filterByBrowser: function(browser){
 			return _(this.filter({"browser":browser}));
 		},
-
-		// getByBatchId: function(batchId){
-		// 	this.url = '/test/'+batchId;
-		// 	//this.fetch();
-		// 	//return this;
-		// },
-
 
 	});
 	return Batch;

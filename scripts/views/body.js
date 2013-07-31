@@ -6,7 +6,7 @@ define([
 	'collections/batch',
 	'models/batch',
 	'models/batchIds',
-	'text!/templates/body.tpl'
+	'text!templates/body.tpl'
 ],
 function(Backbone, SidebarView, BatchView, SliderView, BatchCollection, BatchModel, BatchIdsModel, Template){
 	var BodyView = Backbone.View.extend({
@@ -22,27 +22,21 @@ function(Backbone, SidebarView, BatchView, SliderView, BatchCollection, BatchMod
 
 		attributes:{"class": "row-fluid"},
 
-		template: _.template(Template.replace(/(\r\n|\n|\r)/gm,"")),//'<div id="sidebar" class="well span2"></div><div id="content" class="row-fluid span10"><div class="span12 header" id="header"><h1>Screenshots</h1><div class="row-fluid"><h3 id="count" class="pull-right"></h3><h3 id="date" class="pull-right">date</h3></div></div></div>'),
+		template: _.template(Template.replace(/(\r\n|\n|\r)/gm,"")),
 
 		events: {
 			"click .filter": "filterAndDraw",
 			"click #mode" : "switchMode",
 			"mousedown .ui-slider-handle": "slider",
 		},
-
-		// initialize: function(batch){
-		// 	this.initialBatch = batch || {};
-		// 	this.batchModel = new BatchModel(batch);
-		// },
-
 		
 		render: function(batch){
-			console.log('begin render');
 			this.$el.html(this.template());
 			$('#container').html(this.$el);
 			this.renderSlider();
 			this.renderSidebar(batch);
-			var batchView = new BatchView({collection: batch, mode: 'browse'});
+			var batchView = new BatchView({collection: batch, mode: 'compact'});
+			this.mode = 'compact';
 			this.drawContent(batchView);
 			return this;
 		},
@@ -83,8 +77,6 @@ function(Backbone, SidebarView, BatchView, SliderView, BatchCollection, BatchMod
 			//used to filter the screenshots
 			//logic for keeping track of which butons are clicked.
 			var workingBatch = this.initialBatch;
-			console.log('workingBatch', workingBatch)
-			console.log('EEEVVV', ev);
 			var target = $("#"+ev.target.id);
 			//buttons that are active before the click
 			var isActive = ($("#"+ev.target.id).hasClass('btn-primary'));
@@ -196,28 +188,6 @@ function(Backbone, SidebarView, BatchView, SliderView, BatchCollection, BatchMod
 			$("#date").html(out);
 			return out;
 		},
-
-		// if this is needed, the correct function is in mongo-helper
-		// dateHash: function(javascriptDateObject){
-		// 	var date = d.getDate();
-		// 	var month = d.getMonth();
-		// 	var year = d.getFullYear();
-
-		// 	//properly format month and date for database use:
-		// 	if(month <10){	month = "0"+month;	}
-		// 	if(date < 10){	date = "0"+date;	}
-
-		// 	var batchIdString = month + date + year;
-
-		// 	//adds 0 at the end if it is the morning batch, 5 if it is the afternoon batch
-		// 	if(d.getHours()<=12) {
-		// 		batchIdString = batchIdString.concat('0');
-		// 	}
-		// 	else{
-		// 		batchIdString = batchIdString.concat('5');
-		// 	}
-		// 	return batchIdString;
-		// }
 
 	});
 

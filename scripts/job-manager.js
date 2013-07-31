@@ -6,6 +6,8 @@ var MongoHelper = require('./mongo-helper');
 var async = require('async');
 
 
+//Job manager is a class that interfaces with browserstack to manage requests. 
+//Primary problem that this handles is failed requests or partially failed requests.
 function JobManager(){
 	events.EventEmitter.call(this);
 
@@ -15,6 +17,7 @@ function JobManager(){
   	};
 
   	//creates the requests specified in the json_browsers passed in
+  	//This will also handle partially failed requests by re-requesting the needed screenshots
   	this.createJob = function(json_browsers){
 	    var dataString = JSON.stringify(json_browsers);
 	    //var dataString = JSON.stringify(data);
@@ -24,6 +27,7 @@ function JobManager(){
 	      'Content-Length': dataString.length
 	    };
 
+	    //options needed for the request to browserstack
 	    var options = {
 	      hostname: 'www.browserstack.com',
 	      method: 'POST',
@@ -105,7 +109,7 @@ function JobManager(){
 
   	//function that creates the repeating cron job; executes at 9 am and 2 pm
   	this.createCron = function(){
-  	  var fileJSON = require('./requests.json');
+  	  var fileJSON = require('../requests.json');
   	  var dataString = JSON.stringify(fileJSON);
   	  var job = new cronJob({
   	    cronTime: '0 9,17 * 1-5 * ',
@@ -118,6 +122,8 @@ function JobManager(){
   	  job.start();
   	}
 
+  	//because callback_url does not seem to work, this function is used
+  	//to check the job state after it has been created.
   	this.checkJobState = function(){
     	var self = this;
     	var json_worker = self.json_worker;
