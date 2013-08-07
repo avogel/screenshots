@@ -114,6 +114,7 @@ function(Backbone, SidebarView, BatchView, SliderView, BatchCollection, BatchMod
 			}
 		},
 
+		//handle the slider functionality.  When the slider slides update the date, when it stops update the photos shown.
 		slider: function(){
 			var self = this;
 			$("#slider").slider({
@@ -169,6 +170,7 @@ function(Backbone, SidebarView, BatchView, SliderView, BatchCollection, BatchMod
 		},//end slider
 
 
+		//for a date 9/3/13 in the evening, the hash is 201309035
 		hashToDateString: function(hashString){
 			// var hashString = $("#date").html();
 			var hash = parseInt(hashString);
