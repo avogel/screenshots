@@ -38,6 +38,11 @@ app.use(function(err, req, res, next){
   res.send(500,'Internal Server error. Something broke.');
 });
 
+//The 404 route here
+app.get('*', function(req, res){
+  res.send('what???', 404);
+});
+
 app.listen(3000);
 console.log('Listening on port 3000');
 
