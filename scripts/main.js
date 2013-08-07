@@ -24,7 +24,7 @@ requirejs(['collections/batch', 'models/screenshot', 'views/batch', 'views/scree
 function(BatchCollection, ScreenshotModel, BatchView, ScreenshotView, SidebarView, BodyView){
 
     $.get(
-        "/batchIds",
+        "batchIds",
         function(data){
             var global = this;
             global.ids = data;

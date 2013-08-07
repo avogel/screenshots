@@ -23,8 +23,8 @@ app.get('/test', function(req, res){
 });
 app.get('/test/:id', screenshots.getTestById);
 
-//this is used to get the Ids of all batches so the slider can render with proper intervals
-app.get('/batchIds', function(req,res){
+app.get('batchIds/', function(req,res){
+	console.log('batchIds requested');
 	screenshots.getBatchIds(req,res);
 });
 
@@ -36,6 +36,11 @@ app.get('/screenshots/:id', screenshots.getBatchById);
 app.use(function(err, req, res, next){
   console.log(err.stack);
   res.send(500,'Internal Server error. Something broke.');
+});
+
+//The 404 route here
+app.get('*', function(req, res){
+  res.send('what???', 404);
 });
 
 app.listen(3000);
