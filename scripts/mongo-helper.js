@@ -106,10 +106,10 @@ function mongoHelper(){
 	};
 
 
-	//TODO change test and url
+	//TODO change test and url  mongodb://ec2-50-17-56-184.compute-1.amazonaws.com/nyt5_screenshots/app/screenshots//:27017/browserstacktest
 	this.getBatchIds = function(req, res){
 		var output = [];
-		MongoClient.connect("mongodb://ec2-50-17-56-184.compute-1.amazonaws.com/nyt5_screenshots/app/screenshots//:27017/browserstacktest", function(err, db){
+		MongoClient.connect("mongodb://localhost:27017/browserstacktest", function(err, db){
 			var collection = db.collection('test');
 			var ids = collection.distinct("batchId", function(err, docs){
 				docs.sort();
