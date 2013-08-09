@@ -24,7 +24,7 @@ requirejs(['collections/batch', 'models/screenshot', 'views/batch', 'views/scree
 function(BatchCollection, ScreenshotModel, BatchView, ScreenshotView, SidebarView, BodyView){
 
     $.get(
-        "batchIds",
+        "http://ec2-50-17-56-184.compute-1.amazonaws.com/batchIds",
         function(data){
             var global = this;
             global.ids = data;

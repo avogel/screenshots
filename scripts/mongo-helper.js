@@ -12,7 +12,7 @@ function mongoHelper(){
 	};
 
 	//add a batch of photos
-	this.addBatch = function(batch
+	this.addBatch = function(batch){
 		// TODO change the '/browserstacktest' part to what we want
 		MongoClient.connect("mongodb://ec2-50-17-56-184.compute-1.amazonaws.com/nyt5_screenshots/app/screenshots/:27017/browserstacktest", function(err, db){
 			if(err){
